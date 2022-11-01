@@ -22,3 +22,18 @@ inserisci(N, 0, Xs, [N | Xs]).
 inserisci(N, K, [X | Xs], [X | Ys]) :-
     Kn is K-1,
     inserisci(N, Kn, Xs, Ys).
+
+%! Inserisci un elemento in una lista ordinata
+inserisciOrdinato(N, [], [N]).
+inserisciOrdinato(N, [X | Xs], [N, X | Xs]) :-
+    N =< X.
+inserisciOrdinato(N, [X | Xs], [X | Ys]) :-
+    X < N,
+    inserisciOrdinato(N, Xs, Ys).
+
+%! Elimina il k-esimo elemento
+elimina(0, [_ | Xs], Xs).
+elimina(K, [X | Xs], [X | Ys]) :-
+    Kn is K-1,
+    K > 0,
+    elimina(Kn, Xs, Ys).
