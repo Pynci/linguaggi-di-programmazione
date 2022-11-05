@@ -66,7 +66,16 @@ inverti([_ | Xs], [Y | Ys]) :-
     append(NewXs, Last, Xs),
     Last = Y,
     inverti(NewXs, Ys).
-    
-    
-    
-    
+
+%! ESERCIZIO TEMA D'ESAME (subset lista ordinata)
+subsetOr([], _).
+subsetOr([X | Xs], [X | Ys]) :-
+    subset(Xs, Ys).
+subsetOr([X | Xs], [_ | Ys]) :-
+    subset([X | Xs], Ys).
+%! PARTE 2 (subset)
+subset([], _).
+subset([X | Xs], Ys) :-
+    member(X, Ys),
+    !,
+    subset(Xs, Ys).
