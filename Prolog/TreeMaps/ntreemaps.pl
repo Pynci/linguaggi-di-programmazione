@@ -2,7 +2,7 @@
 
 %%%% ntreemaps.pl
 
-%! is_treemap(Treemap) è deterministico
+%! is_treemap(Treemadp) è deterministico
 %
 % Vero quando Treemap è un termine nella forma
 % treemap(_Name, Root).
@@ -40,6 +40,7 @@ search(K, node(KN, _, _, R), V) :-
     search(K, R, V).
 
 insert(K, V, void, node(K, V, void, void)).
+
 
 
 %%%% end of file -- ntreemaps.pls
