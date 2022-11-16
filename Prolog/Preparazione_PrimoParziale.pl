@@ -13,3 +13,24 @@ countElement([_ | Xs], A, C) :-
     countElement(Xs, A, C).
 
 
+% Predicato deepest_node/3 che non va una megamadonna e non si riesce a spottare il motivo
+
+deepest_node(node(Key, Value, void, void), node(Key, Value, void, void), 0).
+deepest_node(node(_Key, _Value, L, void), N, D) :-
+    D1 is D-1,
+    deepest_node(L, N, D1).
+deepest_node(node(_Key, _Value, void, R), N, D) :-
+    D1 is D-1,
+    deepest_node(R, N, D1).
+deepest_node(node(_Key, _Value, L, R), LN, D) :-
+    LD is D-1,
+    RD is D-1,
+    deepest_node(L, LN, LD),
+    deepest_node(R, RN, RD),
+    LD >= RD.
+deepest_node(node(_Key, _Value, L, R), RN, D) :-
+    RD is D-1,
+    LD is D-1,
+    deepest_node(L, LN, LD),
+    deepest_node(R, RN, RD),
+    LD < RD.
