@@ -83,8 +83,16 @@ Definire un predicato subarray/2 tale che subarray(L1, L2) restituisca vero se L
 Esempio: subarray([a, b, c, d], [b, c]). Restituisce vero
 */
 
+<<<<<<< HEAD
 %da rifare
 					 
+=======
+subarray(L1, L2) :-
+    append(_, L3, L1),
+    append(L2, _, L3).
+
+
+>>>>>>> f0da9e1291370e452c5256d8cae6ce26f30000b2
 /*
 Definire un predicato subsequence/2 tale che subsequence(L1, L2) restituisca vero se L2 è una sottosequenza di L1,
 ossia se L2 è costituita da un sottoinsieme di elementi di L1, che rispettano l’ordine originale,
@@ -95,4 +103,11 @@ subsequence([X | Xs], [X | Ys]) :-
     subsequence(Xs, Ys).
 subsequence([_ | Xs], [Y | Ys]) :-
     subsequence(Xs, [Y | Ys]).
-% da continuare, capire e verificare
+
+
+/*
+Definire un predicato flatten/2 tale che flatten(L1, L2) sia vero se L2 è l’elenco degli elementi di L1
+e delle sue sottoliste (sostanzialmente “spacchettiamo” le liste mantenendo l’ordine).
+Esempio: flatten([a, [b, [c], d], [e, f]], [a, b, c, d, e, f]). Restituisce vero
+*/
+% da fare
