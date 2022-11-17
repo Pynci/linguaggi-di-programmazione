@@ -83,13 +83,8 @@ Definire un predicato subarray/2 tale che subarray(L1, L2) restituisca vero se L
 Esempio: subarray([a, b, c, d], [b, c]). Restituisce vero
 */
 
-subarray(_, []).
-subarray([X | Xs], [X | Ys]) :-
-    subarray(Xs, Ys).
-subarray([_ | Xs], [Y | Ys]) :-
-    subarray(Xs, [Y | Ys]).
-
-
+%da rifare
+					 
 /*
 Definire un predicato subsequence/2 tale che subsequence(L1, L2) restituisca vero se L2 è una sottosequenza di L1,
 ossia se L2 è costituita da un sottoinsieme di elementi di L1, che rispettano l’ordine originale,
