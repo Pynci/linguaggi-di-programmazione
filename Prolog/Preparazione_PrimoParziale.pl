@@ -14,12 +14,12 @@ deepest_node(node(_Key, _Value, void, R), N, D) :-
 
 deepest_node(node(_Key, _Value, L, R), LN, D) :-
     deepest_node(L, LN, LD),
-    deepest_node(R, RN, RD),
+    deepest_node(R, _, RD),
     LD >= RD,
     D is LD + 1.
 
 deepest_node(node(_Key, _Value, L, R), RN, D) :-
-    deepest_node(L, LN, LD),
+    deepest_node(L, _, LD),
     deepest_node(R, RN, RD),
     LD < RD,
     D is RD + 1.
@@ -104,7 +104,8 @@ Definire un predicato flatten/2 tale che flatten(L1, L2) sia vero se L2 è l’e
 e delle sue sottoliste (sostanzialmente “spacchettiamo” le liste mantenendo l’ordine).
 Esempio: flatten([a, [b, [c], d], [e, f]], [a, b, c, d, e, f]). Restituisce vero
 */
-% da fare
+% non si può fare fanculo
+
 
 % compress/2 dal primo parziale del 2012
 compress([X | []], [X | []]).
@@ -113,3 +114,40 @@ compress([X | Xs], [X | Ys]) :-
     !.
 compress([_ | Xs], [_ | Ys]) :-
     compress(Xs, Ys).
+
+
+
+/*
+IL BOSS FINALE
+Definire un predicato intersection/3 tale che
+intersection(L1, L2, L3)sia vero se L3 è l’intersezione 
+delle due liste L1 e L2.
+L’ordine degli elementi non è specificato.
+Esempio: intersection([a, b, c, d, e, f], [e, a, r], [a, e]). Restituisce vero
+*/
+
+% DA SISTEMARE PERCHE' LOOPPA TUTTOOOOOO SIUUUM
+intersection([_ | Xs], [Y | Ys], Zs) :-
+    intersection4([_ | Xs], [Y | Ys], [Y | Ys], Zs).
+
+intersection4([], _, _, []).
+
+% se le due liste hanno la stessa testa le sego via entrambe
+% e aggiungo l'elemento comune all'intersezione
+intersection4([Y | Xs], [Y | Ys], [Y | Ys], Zs) :-
+    append(Zs, [Y], NewZ),
+    intersection4(Xs, Ys, [Y | Ys], NewZ).
+
+% se c'è ancora almeno un elemento nella seconda lista allora
+% sego via la testa e rifaccio il controllo
+intersection4([X | Xs], [Y | Ys], [Y | Ys], Zs) :-
+    intersection4([X | Xs], Ys, [Y | Ys], Zs).
+
+% se arrivo ad avere la lista vuota vuol dire che X non c'è
+% in nella seconda lista, lo sego e riparto da capo
+intersection4([_ | Xs], [], [Y | Ys], Zs) :-
+    intersection4(Xs, [Y | Ys], [Y | Ys], Zs).
+
+
+
+
