@@ -1,6 +1,47 @@
 %%% -*- Mode: Prolog -*-
 
-% Definire un predicato countElement/3 tale che countElement(L1, A, C) sia vero se
+% Predicato deepest_node/3 che non va una megamadonna e non si riesce a spottare il motivo
+
+deepest_node(node(Key, Value, void, void), node(Key, Value, void, void), 0).
+
+deepest_node(node(_Key, _Value, L, void), N, D) :-
+    deepest_node(L, N, D1),
+    D is D1 + 1.
+
+deepest_node(node(_Key, _Value, void, R), N, D) :-
+    deepest_node(R, N, D1),
+    D is D1 + 1.
+
+deepest_node(node(_Key, _Value, L, R), LN, D) :-
+    deepest_node(L, LN, LD),
+    deepest_node(R, RN, RD),
+    LD >= RD,
+    D is LD + 1.
+
+deepest_node(node(_Key, _Value, L, R), RN, D) :-
+    deepest_node(L, LN, LD),
+    deepest_node(R, RN, RD),
+    LD < RD,
+    D is RD + 1.
+
+
+% Predicato subset/2
+
+subset([], _).
+
+subset([X | Xs], Ys) :-
+    membro(X, Ys),
+    subset(Xs, Ys).
+
+
+% Predicato membro/2 (nel caso servisse)
+
+membro(X, [X | _]).
+
+membro(X, [_ | Ys]) :-
+    membro(X, Ys).
+
+%Definire un predicato countElement/3 tale che countElement(L1, A, C) sia vero se
 % l’elemento A compare C volte in L1.
 % Esempio: countElement([a, b, [a, b, c]], a, 1). Restituisce vero
 
@@ -13,24 +54,50 @@ countElement([_ | Xs], A, C) :-
     countElement(Xs, A, C).
 
 
-% Predicato deepest_node/3 che non va una megamadonna e non si riesce a spottare il motivo
+/*
+Definire un predicato countd/3 tale che countD(L1, A, C) sia vero se l’elemento A compare C volte in L1, contando anche le occorrenze nelle sottoliste.
+Esempio: countd([a, b, [a, b, c]], a, 2). Restituisce vero
+*/
+countd([], _, 0).
 
-deepest_node(node(Key, Value, void, void), node(Key, Value, void, void), 0).
-deepest_node(node(_Key, _Value, L, void), N, D) :-
-    D1 is D-1,
-    deepest_node(L, N, D1).
-deepest_node(node(_Key, _Value, void, R), N, D) :-
-    D1 is D-1,
-    deepest_node(R, N, D1).
-deepest_node(node(_Key, _Value, L, R), LN, D) :-
-    LD is D-1,
-    RD is D-1,
-    deepest_node(L, LN, LD),
-    deepest_node(R, RN, RD),
-    LD >= RD.
-deepest_node(node(_Key, _Value, L, R), RN, D) :-
-    RD is D-1,
-    LD is D-1,
-    deepest_node(L, LN, LD),
-    deepest_node(R, RN, RD),
-    LD < RD.
+countd([[X | Xs]], Y, C) :-
+    countd([X | Xs], Y, C).
+
+countd([X | [Y | Ys]], Y, C) :-
+    Cn is C-1,
+    !,
+    countd([X | Ys], Y, Cn).
+
+countd([X | Xs], X, C) :-
+    Cn is C-1,
+    !,
+    countd(Xs, X, Cn).
+
+countd([_ | Xs], Y, C) :-
+    countd(Xs, Y, C).
+
+
+/*
+Definire un predicato subarray/2 tale che subarray(L1, L2) restituisca vero se L2 è un sottoarray
+(conta l’ordine e la molteplicità) di L1.
+Esempio: subarray([a, b, c, d], [b, c]). Restituisce vero
+*/
+
+subarray(_, []).
+subarray([X | Xs], [X | Ys]) :-
+    subarray(Xs, Ys).
+subarray([_ | Xs], [Y | Ys]) :-
+    subarray(Xs, [Y | Ys]).
+
+
+/*
+Definire un predicato subsequence/2 tale che subsequence(L1, L2) restituisca vero se L2 è una sottosequenza di L1,
+ossia se L2 è costituita da un sottoinsieme di elementi di L1, che rispettano l’ordine originale,
+ma non sono necessariamente consecutivi. In sostanza è vero se L2 è ottenibile eliminando alcuni (o nessuno) degli elementi di L1.
+*/
+subsequence(_, []).
+subsequence([X | Xs], [X | Ys]) :-
+    subsequence(Xs, Ys).
+subsequence([_ | Xs], [Y | Ys]) :-
+    subsequence(Xs, [Y | Ys]).
+% da continuare, capire e verificare
