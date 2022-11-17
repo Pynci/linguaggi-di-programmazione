@@ -82,17 +82,11 @@ Definire un predicato subarray/2 tale che subarray(L1, L2) restituisca vero se L
 (conta l’ordine e la molteplicità) di L1.
 Esempio: subarray([a, b, c, d], [b, c]). Restituisce vero
 */
-
-<<<<<<< HEAD
-%da rifare
-					 
-=======
 subarray(L1, L2) :-
     append(_, L3, L1),
     append(L2, _, L3).
 
 
->>>>>>> f0da9e1291370e452c5256d8cae6ce26f30000b2
 /*
 Definire un predicato subsequence/2 tale che subsequence(L1, L2) restituisca vero se L2 è una sottosequenza di L1,
 ossia se L2 è costituita da un sottoinsieme di elementi di L1, che rispettano l’ordine originale,
@@ -111,3 +105,11 @@ e delle sue sottoliste (sostanzialmente “spacchettiamo” le liste mantenendo 
 Esempio: flatten([a, [b, [c], d], [e, f]], [a, b, c, d, e, f]). Restituisce vero
 */
 % da fare
+
+% compress/2 dal primo parziale del 2012
+compress([X | []], [X | []]).
+compress([X | Xs], [X | Ys]) :-
+    compress(Xs, [X | Ys]),
+    !.
+compress([_ | Xs], [_ | Ys]) :-
+    compress(Xs, Ys).
