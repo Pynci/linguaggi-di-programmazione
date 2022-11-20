@@ -148,6 +148,11 @@ intersection4([X | Xs], [Y | Ys], [Y | Ys], Zs) :-
 intersection4([_ | Xs], [], [Y | Ys], Zs) :-
     intersection4(Xs, [Y | Ys], [Y | Ys], Zs).
 
-
-
+%non funziona
+sostituisci(_, _, [], []).
+sostituisci(X, Y, [X | Xs], Ys) :-
+    sostituisci(X, Y, Xs, [Y | Ys]).
+sostituisci(X, Y, [Z | Xs], [Z | Ys]) :-
+    X \= Z,
+    sostituisci(X, Y, Xs, Ys).
 
