@@ -1,0 +1,8 @@
+;;;; -*- Mode: Lisp -*-
+
+;;; treemaps.lisp
+
+(defun nodo (chiave valore destra sinistra)
+  (list chiave valore destra sinistra))
+
+;;; end of file --- treemaps.lisp
