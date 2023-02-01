@@ -21,4 +21,4 @@
 (defun inverti (lista)
   (cond ((null lista) NIL)
         ((atom lista) lista)
-        (T (append (inverti (rest lista)) (list (first lista))))))
+        (T (append (inverti (rest lista)) (list (inverti (first lista)))))))
